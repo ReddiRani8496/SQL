@@ -1,0 +1,39 @@
+USE sql_store;
+SELECT * 
+FROM customers
+WHERE customer_id < 5
+ORDER BY first_name;
+
+second query:
+------------
+
+USE sql_store;
+SELECT 
+	first_name,
+    last_name,
+    points
+FROM customers;
+
+Third query - arithmetic operation:
+----------   ---------------------
+
+USE sql_store;
+SELECT 
+	first_name,
+    last_name,
+    points,
+    points + 20 -- adding 20 to points
+FROM customers;
+
+
+Fourth Query - alias name: (as)
+--------------------------
+
+USE sql_store;
+SELECT 
+	first_name,
+    last_name,
+    points,
+    points + 20 as 'After Tax' -- alias name
+FROM customers;
+

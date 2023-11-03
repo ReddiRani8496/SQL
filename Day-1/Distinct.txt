@@ -1,0 +1,13 @@
+Distinct : To fetch unique details in table
+
+Syntax:
+------
+
+SELECT DISTINCT col_name
+FROM table_name;
+
+Query:
+-----
+
+SELECT DISTINCT state
+FROM customers;
