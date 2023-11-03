@@ -1,0 +1,40 @@
+Equal to operator (=) :
+---------------------
+SELECT * 
+FROM customers
+WHERE state = 'VA';
+
+Not Equal to (<>):
+-----------------
+
+SELECT * 
+FROM customers
+WHERE state <> 'VA';
+
+Greater Than (>):
+-----------------
+
+SELECT * 
+FROM customers
+WHERE customer_id > 5;
+
+Less Than (<) :
+------------
+
+SELECT * 
+FROM customers
+WHERE points < 1000;
+
+Greater than or equal to :
+------------------------
+
+SELECT * 
+FROM customers
+WHERE points >= 2000;
+
+Less than or equal to :
+---------------------
+
+SELECT * 
+FROM customers
+WHERE points >= 2000;
