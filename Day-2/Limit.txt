@@ -1,0 +1,17 @@
+USE sql_store;
+SELECT *
+FROM customers
+-- LIMIT 3; fetch first 3 records
+LIMIT 6, 3; -- skips first 6 customers and return next 3 customers
+
+Assignment:
+----------
+
+Get first 3 loyal customers:
+--------------------------
+
+USE sql_store;
+SELECT *
+FROM customers
+ORDER BY points DESC
+LIMIT 3;
