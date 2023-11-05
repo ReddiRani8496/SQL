@@ -1,0 +1,37 @@
+INSERT INTO customers
+VALUES (
+  DEFAULT,
+  'King',
+  'David',
+  '2000-01-06',
+  987-098-7890,
+  'Madanapalle',
+  'Madanapalle',
+  'AP',
+  280
+  );
+
+
+  -- To insert multiple values 
+
+  USE sql_store;
+INSERT INTO shippers(name)
+VALUES ('ship1'),
+	   ('ship2'),
+	   ('ship3');
+
+
+Assignment insert three rows into products table:
+------------------------------------------------
+
+USE sql_store;
+INSERT INTO products
+VALUES ( 11, 'chips',4,60),
+	  (12,'chocolate',8,30),
+      (13,'ice-cream',4,50);
+    
+
+USE sql_store;
+INSERT INTO orders (customer_id,order_date,status)
+VALUES(1,'1990-08-20',1);
+SELECT LAST_INSERT_ID();

@@ -1,0 +1,13 @@
+USE sql_store;
+CREATE table orders_archieving AS
+SELECT * FROM orders;
+
+
+// to insert only particular details
+
+USE sql_store;
+INSERT INTO orders_archieving
+SELECT * 
+FROM orders
+WHERE order_date < '2019-01-01';
+
