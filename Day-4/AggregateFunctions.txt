@@ -1,0 +1,19 @@
+USE sql_invoicing;
+SELECT MAX(invoice_total)AS highest,
+	 MIN(invoice_total) AS lowest,
+      AVG(invoice_total) AS average,
+      SUM(invoice_total) AS total,
+      COUNT(invoice_total) AS number_of_invoices
+FROM invoices;
+
+
+USE sql_invoicing;
+SELECT MAX(invoice_total)AS highest,
+	 MIN(invoice_total) AS lowest,
+      AVG(invoice_total) AS average,
+      SUM(invoice_total  * 2) AS total,
+      COUNT(DISTINCT client_id) AS total_records
+FROM invoices
+WHERE invoice_date > '1999-01-01';
+
+
