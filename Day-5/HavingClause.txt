@@ -1,0 +1,7 @@
+USE sql_invoicing;
+SELECT client_id,
+		SUM(invoice_total) AS total
+FROM invoices
+GROUP BY client_id
+-- WHERE total > 500 cannot write total after GROUP BY, hence HAVING is used
+HAVING total > 500
