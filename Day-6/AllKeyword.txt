@@ -1,0 +1,24 @@
+// select invoices larger than all invoices of client_3
+
+USE sql_invoicing;
+SELECT *
+FROM invoices
+WHERE invoice_total >
+	(
+        SELECT MAX(invoice_total)
+	    FROM invoices
+	    WHERE client_id=3 
+    )
+
+
+// same query using all keyword
+
+USE sql_invoicing;
+SELECT *
+FROM invoices
+WHERE invoice_total > ALL
+	(
+        SELECT invoice_total
+	    FROM invoices
+	    WHERE client_id=3 
+    )

@@ -1,0 +1,25 @@
+// select clients with atleast two invoices
+
+USE sql_invoicing;
+SELECT * 
+FROM clients
+WHERE client_id IN (
+	SELECT client_id
+	FROM invoices
+	GROUP BY client_id
+	HAVING count(*) >= 2
+    );
+
+
+// using ANY keyword
+
+USE sql_invoicing;
+SELECT * 
+FROM clients
+WHERE client_id = ANY (
+	SELECT client_id
+	FROM invoices
+	GROUP BY client_id
+	HAVING count(*) >= 2
+    );
+
