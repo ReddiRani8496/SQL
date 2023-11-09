@@ -1,0 +1,15 @@
+USE sql_invoicing;
+SELECT 
+	invoice_id,
+    invoice_total,
+    (SELECT AVG(invoice_total) FROM invoices) AS invoice_average,
+    invoice_total - (SELECT invoice_average) AS difference
+FROM invoices
+
+
+USE sql_invoicing;
+SELECT client_id, name,
+	(select SUM(invoice_total) from invoices i WHERE i.client_id = i.client_id) as total_sales,
+    (SELECT AVG(invoice_total) FROM invoices) as average,
+    (SELECT(total_sales))-(SELECT(average)) as difference
+FROM clients c;

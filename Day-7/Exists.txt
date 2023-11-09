@@ -1,0 +1,32 @@
+// select clients that have an invoice
+
+USE sql_invoicing;
+SELECT *
+FROM clients
+WHERE client_id IN (
+	SELECT DISTINCT client_id
+    FROM invoices
+    );
+
+
+// using exists
+
+USE sql_invoicing;
+SELECT *
+FROM clients c
+WHERE EXISTS (
+	SELECT  client_id
+    FROM invoices
+    WHERE c.client_id = client_id
+    );
+
+// select the products that are never ordered
+
+USE sql_store;
+SELECT * 
+FROM products p
+WHERE  NOT EXISTS ( 
+	SELECT product_id
+    FROM order_items o
+    WHERE p.product_id = o.product_id
+   );
