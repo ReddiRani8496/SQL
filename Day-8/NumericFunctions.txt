@@ -1,0 +1,7 @@
+ -- SELECT ROUND(15.6);
+-- SELECT ROUND(18.4376, 2); -- one digit after decimal point
+-- SELECT TRUNCATE(5.7345, 2); -- deleting last two digits
+-- SELECT CEILING(5.2); -- greater than smallest integer
+-- SELECT FLOOR(5.2); -- returns the number withoud decimal
+-- SELECT ABS(-89); -- return the positive integer
+SELECT RAND(); -- random value between 0 and 1

@@ -1,0 +1,8 @@
+-- SELECT(DATE_FORMAT(NOW(),'%y')); get last two digits of the year
+ -- SELECT(DATE_FORMAT(NOW(),'%Y')); get four digits of the year
+ SELECT(DATE_FORMAT(NOW(),'%D %M %Y'));
+  SELECT(TIME_FORMAT(NOW(),'%H:%i:%p'));
+  -- SELECT DATE_ADD(NOW(),INTERVAL 1 DAY); Tomorrow date will be displayed
+-- SELECT DATE_ADD(NOW(),INTERVAL -1 YEAR); last year date will be displayed
+-- SELECT DATEDIFF('2023-01-01', '2021-08-07');
+SELECT TIME_TO_SEC('9:00');

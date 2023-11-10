@@ -1,0 +1,12 @@
+-- SELECT LENGTH('cat');
+-- SELECT UPPER('cat');
+-- SELECT LOWER('CAT');
+-- SELECT LTRIM('  cat');
+-- SELECT RTRIM('cat  '); 
+-- SELECT TRIM('  cat   ');
+-- SELECT LEFT('kindergarten',4); get 4 characters from left
+-- SELECT RIGHT('kindergarten',4); get 4 characters from right
+-- SELECT SUBSTRING('kindergarten',3,8);
+-- SELECT LOCATE('n','kindergarten'); -- first occurance of character, if character doesn't exists return 0
+-- SELECT REPLACE('kindergarten','garten','garden');
+SELECT CONCAT('kindergarten','LOWER');
