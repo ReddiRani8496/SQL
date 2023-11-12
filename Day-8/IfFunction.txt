@@ -4,4 +4,3 @@ SELECT
     order_date,
     IF(YEAR(order_date) = YEAR(NOW()), 'Active','Archieved')
 FROM orders
-
