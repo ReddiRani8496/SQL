@@ -1,0 +1,14 @@
+DROP VIEW viewname;
+
+updatable view:
+--------------
+
+If a view doesn't contain 
+DISTINCT
+Aggregate functions
+GROUP BY
+HAVING
+UNION
+
+then we can update the view
+
