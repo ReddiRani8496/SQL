@@ -9,3 +9,30 @@ DELIMITER ;
 // to view procedure
 
 CALL get_clients();
+
+
+// get all invoices whose balance greater than 0 and create a procedure
+
+USE sql_invoicing;
+DELIMITER $$
+CREATE PROCEDURE get_invoices_with_balance()
+BEGIN
+	SELECT * FROM invoices_with_balance WHERE invoice_total > 0;
+END$$
+DELIMITER ;
+
+// to create a delimiter always is boring, we can avoid this, if we want to create a procedure right click on stored
+procedures and select create a procedure, write the procedure and click on apply
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_payments()`()
+BEGIN
+	SELECT * FROM payments;
+END
+
+// to drop a procedure
+
+drop procedure procedure_name;
+
+USE sql_invoicing;
+drop procedure get_clients;
+
