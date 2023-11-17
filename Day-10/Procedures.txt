@@ -36,3 +36,80 @@ drop procedure procedure_name;
 USE sql_invoicing;
 drop procedure get_clients;
 
+// parameters in procedure
+
+USE sql_invoicing;
+DELIMITER $$
+CREATE PROCEDURE get_clients_by_state
+(
+	state char(2)
+)
+BEGIN
+	SELECT * FROM clients c
+	WHERE state = c.state;
+END 
+DELIMITER $$
+
+// calling a parameterised procedure
+
+CALL get_clients_by_state('CA');
+
+// write stored procedure to return invoices from a given client, name it get_invoices_by_client
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_invoices_by_client`(client_id int)
+BEGIN
+	SELECT * FROM invoices i
+    WHERE i.client_id = client_id;
+END
+
+// calling the above procedure
+
+CALL get_invoices_by_client(5);
+
+
+// while calling a procedure if parameter is not specified
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_clients_by_state`(state char(2))
+BEGIN
+	IF state IS NULL THEN
+		SET state='CA';
+	END IF;
+	SELECT * FROM clients c
+	WHERE state = c.state;
+END
+
+// calling a procedure with null as parameter
+
+CALL get_clients_by_state(NULL); // it returns default state CA details
+
+// creating procedure using if-else
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_clients_by_state`(state char(2))
+BEGIN
+	IF state IS NULL THEN
+		SET state='CA';
+	ELSE 
+		SELECT * FROM clients c
+		WHERE state = c.state;
+	END IF;
+	
+END
+
+// better procedure instead of if-else
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_clients_by_state`(state char(2))
+BEGIN
+		SELECT * FROM clients c
+		WHERE state = IFNULL(state,c.state);
+END
+
+// client_id and pyament_id are parameters
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_payments_by_id`(client_id int, payment_method_id tinyint)
+BEGIN
+	
+		SELECT * FROM payments p
+        WHERE 
+			p.client_id=IFNULL(client_id,p.client_id) and
+            p.payment_method = IFNULL(payment_method_id,p.payment_method);
+END
