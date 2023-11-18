@@ -1,0 +1,130 @@
+TINYINT 1b [-128 to 127] 
+
+UNSIGNED TINYINT [0 to 255]
+
+SMALL INT 2b [-32k to 32k]
+
+MEDIUM INT 3b [-8M to 8M]
+
+INT 4b [-2B to 2B]
+
+BIG INT 8b [-9Z to 9Z]
+
+
+RATIONALS
+---------
+
+DECIMAL(precession, scale); -> DECIMAL(9,2)->1234567.89
+
+DESC
+NUMERIC
+FIXED
+
+FLOAT  4b
+DOUBLE 8b
+
+BOOLEAN
+-------
+
+BOOL (0-false 1-true)
+BOOLEAN (true and flase)
+
+DATE AND TIME
+-------------
+
+DATE
+TIME
+DATETIME 8b (if the year is beyond 2038 we can use DATETIME)
+TIMESTAMP 4b (upto 2038)
+YEAR
+
+BLOBS:
+----
+
+To store images, pdf, files 
+
+TINYBLOB      - 255kb
+BLOB          - 65kb
+MEDIUMBLOB    - 16mb
+LONGBLOB      - 4gb
+
+problems with storing files in a database:
+-----------------------------------------
+Increased database size
+slower backups
+performances  problems
+
+ENUM:
+----
+To set own datatype
+
+It is better to avoid ENUM
+
+how to add enum datatype already existed table:
+
+right click on table, add new row, column name and datatype as ENUM('small','medium','large')
+
+
+JSON:
+----
+
+Light weight format for storing and transferring data over the internet.
+
+JSON {
+    "key":value -- keys are always strings
+}
+
+
+ 
+USE sql_inventory;
+UPDATE products
+SET properties='
+{
+	"dimensions":[1,2,3],
+    "weight":10,
+    "manufacturer":{"name":"sony"}
+}
+'
+WHERE product_id = 1;
+
+
+USE sql_inventory;
+SELECT * from products;
+
+//JSON format by using pre-defined functions
+
+USE sql_inventory;
+UPDATE products
+SET properties=JSON_OBJECT('weight',10,'dimensions',
+							JSON_ARRAY(1,2,3),'manufacturer',
+							JSON_OBJECT('name','sony')
+						)
+WHERE product_id = 1;
+
+// to extract JSON property
+
+USE sql_inventory;
+SELECT product_id, JSON_EXTRACT(properties,'$.weight')
+FROM products
+WHERE product_id = 1;
+
+// to extract JSON property using arrow functions
+
+USE sql_inventory;
+SELECT product_id, properties ->'$.weight' AS weight
+FROM products
+WHERE product_id = 1;
+
+// to access json array values using index
+
+USE sql_inventory;
+SELECT product_id, properties ->'$.dimensions[1]' AS dimension
+FROM products
+WHERE product_id = 1;
+
+// to access json objects object
+
+USE sql_inventory;
+SELECT product_id, properties ->>   '$.manufacturer.name' AS manufacturer
+FROM products
+WHERE product_id = 1;
