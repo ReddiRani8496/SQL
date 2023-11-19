@@ -101,6 +101,7 @@ SET properties=JSON_OBJECT('weight',10,'dimensions',
 						)
 WHERE product_id = 1;
 
+
 // to extract JSON property
 
 USE sql_inventory;
