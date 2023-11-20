@@ -1,3 +1,6 @@
+INTEGER:
+--------
+
 TINYINT 1b [-128 to 127] 
 
 UNSIGNED TINYINT [0 to 255]
