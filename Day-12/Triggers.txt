@@ -1,0 +1,108 @@
+Trigger is A block of sql code that automatically gets executed before or after an insert,update, delete statement.
+
+
+USE sql_invoicing;
+DELIMITER $$
+CREATE TRIGGER payments_after_insert
+	AFTER INSERT ON payments
+    FOR EACH ROW
+BEGIN
+	UPDATE invoices 
+    SET payment_total = NEW.amount+payment_total
+    WHERE invoice_id = NEW.invoice_id;
+END $$
+DELIMITER ;
+
+//inserting into payments table
+
+USE sql_invoicing;
+INSERT INTO payments
+VALUES (DEFAULT,5,3,'2019-01-01',10,1);
+
+// create a trigger that gets fired when we delete a payment
+
+USE sql_invoicing;
+DELIMITER $$
+CREATE TRIGGER payments_after_delete
+	AFTER DELETE ON payments
+    FOR EACH ROW
+BEGIN
+	UPDATE invoices
+    SET payment_total = payment_total - OLD.amount
+    WHERE invoice_id = OLD.invoice_id;
+END $$
+DELIMITER ;
+
+// deleting from payments
+
+USE sql_invoicing;
+DELETE FROM payments
+WHERE payment_id = 9;
+
+// to view triggers
+
+SHOW TRIGGERS
+
+// to drop trigger
+
+DROP TRIGGER IF EXISTS payments_after_insert;
+
+// auditing table is used to keep track which trigger is fired at what type and action of trigger
+
+USE sql_invoicing;
+DELIMITER $$
+DROP TRIGGER IF EXISTS payments_after_insert;
+CREATE TRIGGER payments_after_insert
+	AFTER INSERT ON payments
+    FOR EACH ROW
+BEGIN
+	UPDATE invoices 
+    SET payment_total = NEW.amount+payment_total
+    WHERE invoice_id = NEW.invoice_id;
+    
+    INSERT INTO payments_audit 
+    VALUES(NEW.client_id,NEW.date,NEW.amount,'Insert',NOW());
+END $$
+DELIMITER ;
+
+// Events : A task (or a block of sql code) that gets executes according to a schedule
+
+// all system variables
+
+SHOW VARIABLES;
+
+// to see variables whose name starts with event
+
+SHOW VARIABLES LIKE 'event%';
+
+// to set event_sheduler on or off
+
+SHOW VARIABLES LIKE 'event%';
+SET GLOBAL event_scheduler = 'OFF';
+
+// creating event
+
+DELIMITER $$
+CREATE EVENT yearly_delete_sale_audit_rows
+ON SCHEDULE
+	EVERY 1 YEAR
+DO
+BEGIN
+	DELETE FROM payments_audit
+    WHERE action_date<NOW()-INTERVAL 1 YEAR;
+END$$
+DELIMITER ;
+
+// to view Events
+
+SHOW EVENTS;
+
+
+// drop Events
+--------------
+DROP EVENT  IF EXISTS yearly_delete_sale_audit_rows;
+
+// alter Events
+---------------
+
+ALTER EVENT yearly_delete_sale_audit_rows ENABLE;
