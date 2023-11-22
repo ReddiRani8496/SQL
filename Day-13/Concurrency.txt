@@ -1,0 +1,15 @@
+USE sql_store;
+START TRANSACTION;
+UPDATE customers
+SET points = points+10
+WHERE customer_id=1;
+COMMIT;
+
+// if two persons or servers trying to update the TRANSACTION, one can perform update only the previous transaction 
+is updated.
+
+Concurenty problems:
+
+Dirty reads
+repeated reads
+phantom reads 
