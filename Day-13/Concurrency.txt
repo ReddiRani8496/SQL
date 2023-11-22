@@ -13,3 +13,101 @@ Concurenty problems:
 Dirty reads
 repeated reads
 phantom reads 
+
+// changing isolation level:
+---------------------------
+
+SHOW VARIABLES LIKE 'transaction_isolation';
+SET GLOBAL (or sesssion) TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+Read uncommited: we will get updated data even the transaction is not commited.
+---------------
+
+USE sql_store;
+START TRANSACTION;
+UPDATE customers
+SET points = 20
+WHERE customer_id = 1;
+COMMIT;
+
+USE sql_store;
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT points
+FROM customers
+WHERE customer_id=1;
+
+Read commited: we will get old data, util the transaction completely executed or commited
+-------------
+
+USE sql_store;
+START TRANSACTION;
+UPDATE customers
+SET points = 20
+WHERE customer_id = 1;
+COMMIT;
+
+
+USE sql_store;
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+SELECT points
+FROM customers
+WHERE customer_id=1;
+
+
+USE sql_store;
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+START TRANSACTION;
+SELECT points FROM customers WHERE customer_id=1;
+SELECT points FROM customers WHERE customer_id=1; -- when we make changes after first select statement, it will give false result
+COMMIT;
+
+
+Repeatable read:
+---------------
+
+USE sql_store;
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+START TRANSACTION;
+SELECT points FROM customers WHERE customer_id=1;
+SELECT points FROM customers WHERE customer_id=1; -- even we make changes after first select statement we will get previous output
+COMMIT;
+
+USE sql_store;
+START TRANSACTION;
+UPDATE customers
+SET points = 30
+WHERE customer_id = 1;
+COMMIT;
+
+
+SERIALIZABLE isolation level:  To solve Concurency problem we use serializable,it executes the statements one after the other
+----------------------------
+
+USE sql_store;
+SET TRANSACTION ISOLATION LEVEL serializable;
+START TRANSACTION;
+SELECT * FROM customers WHERE state='VA';
+COMMIT;
+
+
+USE sql_store;
+START TRANSACTION;
+UPDATE customers
+SET state='VA'
+WHERE customer_id = 1;
+COMMIT;
+
+Deadlock: when orders table updation done, it is locked, when customers table updation done it is locked, it leads to Deadlock
+--------
+
+USE sql_store;
+START TRANSACTION;
+UPDATE orders SET status=1 WHERE order_id=1;
+UPDATE customers SET state='VA' WHERE customer_id=1;
+COMMIT;
+
+USE sql_store;
+START TRANSACTION;
+UPDATE customers SET state='VA' WHERE customer_id=1;
+UPDATE orders SET status=1 WHERE order_id=1;
+COMMIT;
