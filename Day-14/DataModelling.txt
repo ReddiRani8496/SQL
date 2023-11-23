@@ -1,0 +1,10 @@
+Data Modelling:
+--------------
+
+Understanding the requirements
+
+Build a conceptual model 
+
+Build a logical model 
+
+Build a physical model

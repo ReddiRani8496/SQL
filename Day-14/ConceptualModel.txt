@@ -1,0 +1,13 @@
+Conceptual Model:
+----------------
+
+Represents the entities and their relationship
+
+Entity Relationship diagrams:
+----------------------------
+Modeling tools:
+-------------
+
+Microsoft visio
+draw.io
+LucidCharts
