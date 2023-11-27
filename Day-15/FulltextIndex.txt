@@ -1,0 +1,17 @@
+use sql_blog;
+create fulltext index idx_title_body on posts(title,body);
+select *
+from posts
+where match(title,body) against('react redux');
+
+use sql_blog;
+create fulltext index idx_title_body on posts(title,body);
+select *, match(title,body) against('react redux')
+from posts
+where match(title,body) against('react -redux +form' in boolean mode);
+
+use sql_blog;
+create fulltext index idx_title_body on posts(title,body);
+select *, match(title,body) against('react redux')
+from posts
+where match(title,body) against('"handling a form"' in boolean mode);

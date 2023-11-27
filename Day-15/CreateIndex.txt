@@ -1,0 +1,4 @@
+USE sql_store;
+Explain SELECT customer_id from customers WHERE points>1000;
+-- SELECT count(*) from customers;
+CREATE INDEX idx_points ON customers(points);
