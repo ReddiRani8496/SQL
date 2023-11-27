@@ -1,0 +1,61 @@
+create user username@ipaddress
+   
+   or
+
+create user username@localhost
+
+  or
+
+create user username@domainname
+
+create password:
+---------------
+
+create user username identified by 'password'
+
+view users:
+----------
+
+select * from mysql.user;
+
+Drop users:
+----------
+
+drop user username;
+
+changing password:
+-----------------
+
+set password for username = 'password';
+
+or 
+
+set password = 'password';
+
+
+granting privellages:
+-------------------
+
+create user username identified by 'password';
+
+grant select,insert,update,delete,execute;
+on sql_store.*; // access all the store database
+to username; 
+
+
+grant all // all manipulations
+on *.*; // all servers from all tables
+to username;
+
+
+view privellages:
+----------------
+
+show grants for username;
+
+Revoke privellages:
+-------------------
+
+Revoke create,delete
+on sql_store.*;
+from username;
