@@ -1,0 +1,11 @@
+use sql_store;
+explain select customer_id from customers order by points;
+show status like 'last_query_cost';
+
+
+use sql_store;
+explain select customer_id from customers 
+where state='CA' order by points;
+show status like 'last_query_cost';
+
+// selecting particular columns will result faster execution and indexes will apply, if we select all indexing will not apply
